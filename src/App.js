@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import Signin from "./component/siginin";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Signup from "./component/signup";
+import Mailpage from "./component/mailpage";
+import Table from "./component/tablemail";
+import Compose from "./component/compose";
+import { useContext } from "react";
+import { UserContext, UserProvider } from "./component/context";
 function App() {
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <UserProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Signin />}></Route>
+            <Route path="/signup" element={<Signup />}></Route>
+
+            <Route path="/mailpage" element={<Mailpage />}>
+              <Route path="inbox" element={<Table />}></Route>
+              <Route path="compose" element={<Compose />}></Route>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </UserProvider>
+    </>
   );
 }
 
