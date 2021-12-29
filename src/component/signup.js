@@ -4,11 +4,20 @@ import { Register } from "./api";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import Local from "./localstorage";
 function Signup(){
-    let [dob,setdob] = useState("")
-    let [name,setname] =useState("")
-    let [email,setemail] =useState("")
-    let [password,setpassword] = useState("")
+    
+    let email = Local('')
+    let name = Local('')
+    let dob = Local('')
+    let password = Local('')
+
+
+
+    // let [dob,setdob] = useState("")
+    // let [name,setname] =useState("")
+    // let [email,setemail] =useState("")
+    // let [password,setpassword] = useState("")
     let subform ={}
     let navigate = useNavigate();
    return  <div class="sup_content">
@@ -19,10 +28,10 @@ function Signup(){
        <div class="sup_input">
            <form onSubmit={async (e)=>{
                e.preventDefault();
-                subform.name = name;
-                subform.dob = dob;
-                subform.email = email;
-                subform.password = password;
+                subform.name = name.val;
+                subform.dob = dob.val;
+                subform.email = email.val;
+                subform.password = password.val;
                 console.log(subform)
                 var ans=await Register(subform)
                 console.log(ans)
@@ -34,16 +43,16 @@ function Signup(){
                 navigate('/');
            }}>
                <input id="in1" size="25" type="text" name="name" placeholder="Name" onChange={(e)=>{
-                   setname(e.target.value)
+                   name.onChange(e)
                }}/>
                <input id="in2" size="25" type="text" name="emailid" placeholder="emailid" onChange={(e)=>{
-                   setemail(e.target.value)
+                   email.onChange(e)
                }}/>
                <input id="in3" size="35" type="date" name="dob" onChange={(e)=>{
-                   setdob(e.target.value)
+                   dob.onChange(e)
                }}/>
                <input id="in4" size="25" type="text" name="password" placeholder="password" onChange={(e)=>{
-                   setpassword(e.target.value)
+                  password.onChange(e)
                }}/>
                <input id="in5" size="25" type="submit" />
            </form>
